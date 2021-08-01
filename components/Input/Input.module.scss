@@ -1,0 +1,62 @@
+$transitionSpeed: 0.3s;
+$inputMainColor: cornflowerblue;
+$inputHeight: 35px;
+
+.inputContainer {
+  position: relative;
+
+  input {
+    border-radius: 20px;
+    outline: none;
+    padding: 5px 10px;
+    border: 1px solid $inputMainColor;
+    width: 100%;
+    height: $inputHeight;
+  }
+
+  input::-webkit-input-placeholder {
+    transition: opacity $transitionSpeed ease-out;
+    opacity: 1;
+  }
+  input:focus::-webkit-input-placeholder {
+    opacity: 0;
+    transition: opacity $transitionSpeed ease;
+  }
+
+  &.withIcon {
+    input {
+      padding-left: 40px;
+    }
+  }
+}
+
+.iconWrapper {
+  outline: none;
+  top: 0;
+  cursor: pointer;
+  border: 1px solid $inputMainColor;
+  background-color: #fff;
+  border-radius: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $inputHeight;
+  width: $inputHeight;
+  transition: background-color $transitionSpeed;
+  svg {
+    fill: black;
+    width: 12px;
+    height: 12px;
+    transition: fill $transitionSpeed;
+  }
+  &:hover, &:focus {
+    background-color: $inputMainColor;
+    transition: background-color $transitionSpeed;
+
+    svg {
+      fill: #fff;
+      transition: fill $transitionSpeed;
+    }
+  }
+}

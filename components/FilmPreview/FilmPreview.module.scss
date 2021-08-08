@@ -1,0 +1,81 @@
+@import "styles/var";
+
+$cardWidth: 200px;
+
+.filmPreviewContainer {
+  position: relative;
+  width: $cardWidth;
+  height: 300px;
+  border-radius: 30px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: border $transitionSpeed;
+  &:before {
+    content: "";
+    z-index: 1;
+    width: $cardWidth;
+    height: 300px;
+    transition: box-shadow $transitionSpeed;
+  }
+
+  .previewPoster {
+    height: 300px;
+    position: relative;
+
+    img {
+      transition: transform $transitionSpeed;
+      position: relative;
+      min-width: $cardWidth;
+      height: inherit;
+      width: inherit;
+    }
+  }
+
+  .filmInfo {
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    width: $cardWidth;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity $transitionSpeed;
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+    span {
+      font-weight: bold;
+    }
+  }
+
+  &:hover {
+    border: 1px solid #aaaaaa;
+    transition: border $transitionSpeed;
+
+    .previewPoster {
+      img {
+        transform: scale(1.1, 1.1);
+        transition: transform $transitionSpeed;
+      }
+    }
+
+
+    .filmInfo {
+      opacity: 1;
+      transition: opacity $transitionSpeed;
+    }
+    &:before {
+      position: absolute;
+      z-index: 1;
+      content: "";
+      width: $cardWidth;
+      height: 300px;
+      box-shadow: inset 10px 10px 70px white;
+      transition: box-shadow $transitionSpeed;
+    }
+  }
+}

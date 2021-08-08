@@ -13,7 +13,7 @@ export default function Home({nextData}: DefaultNextDataI<Array<FilmI>>) {
     const {data} = useGetFilmsQuery(type)
     return (
         <MainLayout title={DEFAULT_PAGE_TITLE + " | Главная"}>
-            <HomePage />
+            <HomePage films={data?.films} />
         </MainLayout>
     )
 }

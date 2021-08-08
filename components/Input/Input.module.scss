@@ -1,6 +1,4 @@
-$transitionSpeed: 0.3s;
-$inputMainColor: cornflowerblue;
-$inputHeight: 35px;
+@import "styles/var";
 
 .inputContainer {
   position: relative;
@@ -9,9 +7,23 @@ $inputHeight: 35px;
     border-radius: 20px;
     outline: none;
     padding: 5px 10px;
-    border: 1px solid $inputMainColor;
+    border: 1px solid $mainColor;
     width: 100%;
     height: $inputHeight;
+    transition: box-shadow $transitionSpeed;
+    box-shadow: 1px $mainColor;
+    &:focus {
+      box-shadow: 0 0 5px $focusMainColor;
+      border-color: $focusMainColor;
+      transition: box-shadow $transitionSpeed;
+    }
+  }
+
+  &:focus-within {
+    .iconWrapper {
+      border-color: $focusMainColor;
+      box-shadow: 0 0 2px $focusMainColor;
+    }
   }
 
   input::-webkit-input-placeholder {
@@ -34,7 +46,7 @@ $inputHeight: 35px;
   outline: none;
   top: 0;
   cursor: pointer;
-  border: 1px solid $inputMainColor;
+  border: 1px solid $mainColor;
   background-color: #fff;
   border-radius: 100%;
   position: absolute;
@@ -51,8 +63,9 @@ $inputHeight: 35px;
     transition: fill $transitionSpeed;
   }
   &:hover, &:focus {
-    background-color: $inputMainColor;
+    background-color: $focusMainColor;
     transition: background-color $transitionSpeed;
+    border-color: $focusMainColor;
 
     svg {
       fill: #fff;

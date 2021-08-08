@@ -11,12 +11,12 @@ interface MainLayoutProps {
 
 export const MainLayout: FC<MainLayoutProps> = ({title, children}) => {
     return (
-        <>
+        <div className={styles.wrapper}>
             <Head>
                 <title>{title || DEFAULT_PAGE_TITLE}</title>
             </Head>
             <header className={styles.headerContainer}>
-                <div className={styles.contentWrapper}>
+                <div className={styles.headerWrapper}>
                     <Header />
                 </div>
             </header>
@@ -25,6 +25,6 @@ export const MainLayout: FC<MainLayoutProps> = ({title, children}) => {
                     {children}
                 </div>
             </main>
-        </>
+        </div>
     );
 };

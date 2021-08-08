@@ -13,7 +13,7 @@ export const Header: FC = () => {
             <Link href="/">
                 <a><Brand /></a>
             </Link>
-            <div className={styles.rightBlock}>
+        <div className={styles.rightBlock}>
                 <Input className={styles.search} icon={<Search />} placeholder={"Введите название фильма"}/>
                 <FavoriteButton favoriteFilmsCount={4} />
             </div>

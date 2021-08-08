@@ -1,3 +1,5 @@
+@import "styles/var";
+
 .buttonContainer {
   position: relative;
   margin-left: 20px;
@@ -11,8 +13,20 @@
   svg {
     height: 30px;
     width: 30px;
-    fill: orangered;
+    fill: $secondColor;
     outline: none!important;
+  }
+  &:focus {
+    svg {
+      fill: $focusSecondColor;
+    }
+  }
+
+  &:focus-within {
+    .favoriteCount {
+      background-color: $focusSecondColor;
+      transition: background-color $transitionSpeed;
+    }
   }
 
   .favoriteCount {
@@ -25,8 +39,8 @@
     width: 20px;
     top: -10px;
     right: -10px;
-    border: 1px solid gray;
-    background-color: orangered;
+    transition: background-color $transitionSpeed;
+    background-color: $secondColor;
     color: white;
     font-weight: 600;
     font-size: 12px;

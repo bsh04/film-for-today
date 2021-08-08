@@ -1,3 +1,4 @@
+@import "styles/var";
 .headerContainer {
   display: flex;
   align-items: center;
@@ -5,6 +6,18 @@
 
   a {
     cursor: pointer;
+    outline: none;
+    svg {
+      fill: $secondColor;
+      transition: -webkit-filter $transitionSpeed, fill $transitionSpeed;
+    }
+    &:focus {
+      svg {
+        fill: $focusSecondColor;
+        -webkit-filter: drop-shadow( 0 0 2px $focusSecondColor);
+        transition: -webkit-filter $transitionSpeed, fill $transitionSpeed;
+      }
+    }
   }
 
   .rightBlock {

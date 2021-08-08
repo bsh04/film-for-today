@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 
 export const Brand: FC = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-camera-reels"
+    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="#1f475b" className="bi bi-camera-reels"
          viewBox="0 0 16 16">
         <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM1 3a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"/>
         <path

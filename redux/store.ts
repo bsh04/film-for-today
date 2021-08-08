@@ -1,13 +1,13 @@
 import {Action, configureStore, ThunkAction} from "@reduxjs/toolkit";
-import {getTopFilmsApi} from "./slices/topFilmsSlice";
+import {getTopFilmsAPI} from "../api/getTopFilmsAPI";
 import { setupListeners } from '@reduxjs/toolkit/query'
 
 export const store = configureStore({
     reducer: {
-        [getTopFilmsApi.reducerPath]: getTopFilmsApi.reducer
+        [getTopFilmsAPI.reducerPath]: getTopFilmsAPI.reducer
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(getTopFilmsApi.middleware)
+        [...getDefaultMiddleware(), getTopFilmsAPI.middleware]
 })
 
 export type AppDispatch = typeof store.dispatch;

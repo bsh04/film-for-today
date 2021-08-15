@@ -1,15 +1,21 @@
 import React, {FC} from 'react';
-import {TopFilmsResponse} from "../../api/getTopFilmsAPI";
-import {nextFetchService} from "../../api/common/nextFetchService";
+import {TopFilmsResponse} from "../../api/rtk/getTopFilmsAPI";
+import {fetchService} from "../../tools/fetchService";
 import {FilmsTopType} from "../../static/api";
-import {GetStaticPropsResult} from "next";
+import {GetStaticPaths, GetStaticProps, GetStaticPropsResult} from "next";
 import {DefaultNextDataI} from "../../interfaces/common/next";
 import {FilmI} from "../../interfaces/entities/film";
 import {MainLayout} from "../../components/MainLayout/MainLayout";
 
+interface FilmDataResponse {
+    data: FilmI
+    externalId: {imdbId: string}
+}
+
 const type = FilmsTopType.TOP_AWAIT_FILMS
 
-function FilmDetails() {
+const FilmDetails: FC<DefaultNextDataI<FilmDataResponse>> = ({nextData}) => {
+    console.log(nextData)
     return (
         <MainLayout>
             INFO
@@ -17,17 +23,17 @@ function FilmDetails() {
     );
 }
 
-export async function getStaticProps(): Promise<GetStaticPropsResult<DefaultNextDataI<Array<FilmI>>>> {
-    const data: TopFilmsResponse = await nextFetchService({url: "films/top", params: `type=${type}`})
+export const getStaticProps: GetStaticProps = async (props): Promise<GetStaticPropsResult<DefaultNextDataI<FilmDataResponse>>> => {
+    const filmData: FilmDataResponse = await fetchService({url: `films/${props.params?.filmId}`})
     return {
         props: {
-            nextData: data?.films || []
+            nextData: filmData
         },
     };
 }
 
-export async function getStaticPaths() {
-    const data: TopFilmsResponse = await nextFetchService({url: "films/top", params: `type=${type}`})
+export const getStaticPaths: GetStaticPaths = async () => {
+    const data: TopFilmsResponse = await fetchService({url: "films/top", params: `type=${type}`, version: 2})
 
     const paths = data.films?.map((film) => ({
         params: { filmId: film.filmId.toString() },

@@ -4,16 +4,14 @@ import styles from "./FilmPreview.module.scss"
 import Image from 'next/image'
 import {LinkWrapper} from "../LinkWrapper/LinkWrapper";
 
-export const FilmPreview: FC<FilmI> = (film) => {
+export const FilmPreview: FC<FilmI> = ({filmId, nameRu, posterUrl}) => {
     return (
-        <LinkWrapper href={"film/" + film.filmId.toString()} key={film.filmId}>
-            <div className={styles.filmPreviewContainer} key={film.filmId}>
-                <div className={styles.previewPoster}>
-                    <Image src={film.posterUrl} alt={film.nameRu} layout={"fill"}/>
-                </div>
-                <div className={styles.filmInfo}>
-                    <span>{film.nameRu}</span>
-                </div>
+        <LinkWrapper className={styles.filmPreviewContainer} href={"film/" + filmId.toString()} key={filmId}>
+            <div className={styles.previewPoster}>
+                <Image src={posterUrl} alt={nameRu} layout={"fill"}/>
+            </div>
+            <div className={styles.filmInfo}>
+                <span>{nameRu}</span>
             </div>
         </LinkWrapper>
     );

@@ -11,11 +11,13 @@ export const Header: FC = () => {
     return (
         <div className={styles.headerContainer}>
             <Link href="/">
-                <a><Brand /></a>
+                <a>
+                    <Brand/>
+                </a>
             </Link>
-        <div className={styles.rightBlock}>
-                <Input className={styles.search} icon={<Search />} placeholder={"Введите название фильма"}/>
-                <FavoriteButton favoriteFilmsCount={4} />
+            <div className={styles.rightBlock}>
+                <Input className={styles.search} icon={<Search/>} placeholder={"Введите название фильма"}/>
+                <FavoriteButton favoriteFilmsCount={4}/>
             </div>
         </div>
     );

@@ -3,6 +3,8 @@
 $cardWidth: 200px;
 
 .filmPreviewContainer {
+  align-self: center;
+  justify-self: center;
   position: relative;
   width: $cardWidth;
   height: 300px;
@@ -13,6 +15,7 @@ $cardWidth: 200px;
   cursor: pointer;
   border: 1px solid transparent;
   transition: border $transitionSpeed;
+
   &:before {
     content: "";
     z-index: 1;
@@ -46,13 +49,19 @@ $cardWidth: 200px;
     text-align: center;
     opacity: 0;
     transition: opacity $transitionSpeed;
-    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0) 100%);
+
     span {
       font-weight: bold;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
     }
   }
 
-  &:hover {
+  &:hover, &:focus-within {
     border: 1px solid #aaaaaa;
     transition: border $transitionSpeed;
 
@@ -68,6 +77,7 @@ $cardWidth: 200px;
       opacity: 1;
       transition: opacity $transitionSpeed;
     }
+
     &:before {
       position: absolute;
       z-index: 1;

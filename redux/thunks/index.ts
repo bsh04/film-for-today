@@ -1,11 +1,18 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {FilmsTopType} from "../../static/api";
-import {homeAPI} from "../../api/homeAPI";
+import {FetchFiltersDataResponse, homeAPI} from "../../api/homeAPI";
+import {FilmsTopType} from "../../static/enums";
 
 export const fetchFilmsByType = createAsyncThunk(
     'users/fetchFilmsByType',
-    async (filmType: FilmsTopType, thunkAPI) => {
+    async (filmType: FilmsTopType) => {
         const response = await homeAPI.fetchHomeData(filmType)
         return response.films
+    }
+)
+
+export const fetchFilters = createAsyncThunk(
+    'users/fetchFilters',
+    async () => {
+        return await homeAPI.fetchFilters()
     }
 )

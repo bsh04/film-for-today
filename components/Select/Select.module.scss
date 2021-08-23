@@ -1,0 +1,54 @@
+@import "styles/var";
+
+.container {
+  position: relative;
+
+  select {
+    width: 230px;
+    appearance: none;
+    padding: 5px 25px 5px 10px;
+    outline: none;
+    cursor: pointer;
+    border-width: 0 0 1px;
+    border-color: $secondColor;
+    transition: $transitionSpeed box-shadow, $transitionSpeed border-color;
+
+
+    &:focus {
+      transition: $transitionSpeed color, $transitionSpeed border-color;
+      border-color: $focusSecondColor;
+      color: $focusSecondColor;
+    }
+  }
+
+  &:focus-within {
+    transition: $transitionSpeed fill;
+    svg {
+      fill: $focusSecondColor;
+    }
+  }
+
+  option {
+    color: black;
+  }
+
+  .disabled {
+    background-color: $mainColor!important;
+    color: white;
+  }
+
+  &.openSelect {
+    svg {
+      transition: $transitionSpeed transform;
+      transform: rotate(180deg);
+    }
+  }
+
+  svg {
+    transition: $transitionSpeed transform, $transitionSpeed fill;
+    position: relative;
+    right: 18px;
+    top: 2px;
+    fill: $secondColor;
+  }
+}

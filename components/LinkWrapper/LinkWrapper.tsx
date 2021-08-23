@@ -10,6 +10,6 @@ interface LinkWrapperProps {
 
 export const LinkWrapper: FC<LinkWrapperProps> = ({href, children, className}) => (
     <Link href={href}>
-        <a>{children}</a>
+        <a className={classNames(styles.linkWrapper, className)}>{children}</a>
     </Link>
 )

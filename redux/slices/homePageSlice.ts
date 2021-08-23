@@ -1,19 +1,28 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {FilmsTopType, LoadingStatus} from "../../static/api";
+import {LoadingStatus} from "../../static/api";
 import {FilmI} from "../../interfaces/entities/film";
-import {fetchFilmsByType} from "../thunks";
-import {createWrapper, HYDRATE} from 'next-redux-wrapper';
-import {Payload} from "@hapi/boom";
+import {fetchFilmsByType, fetchFilters} from "../thunks";
+import {FilmsTopType} from "../../static/enums";
+import {FetchFiltersDataResponse} from "../../api/homeAPI";
 
 interface SliceState {
     films: Array<FilmI>
-    loading: LoadingStatus
+    filters: FetchFiltersDataResponse
+    filmsLoading: LoadingStatus
+    filtersLoading: LoadingStatus
     type: FilmsTopType
+    country?: number
+    genre?: number
 }
 
 const initialState: SliceState = {
     films: [],
-    loading: LoadingStatus.IDLE,
+    filters: {
+        countries: [],
+        genres: []
+    },
+    filmsLoading: LoadingStatus.IDLE,
+    filtersLoading: LoadingStatus.IDLE,
     type: FilmsTopType.TOP_AWAIT_FILMS
 }
 
@@ -23,21 +32,35 @@ export const homePageSlice = createSlice({
     reducers: {
         nextReducer(state: SliceState, action: PayloadAction<Array<FilmI>>) {
             state.films = action.payload
-            state.loading = LoadingStatus.FULL_FILLED
+            state.filmsLoading = LoadingStatus.FULL_FILLED
         },
         setFilmsType(state: SliceState, action: PayloadAction<FilmsTopType>) {
             state.type = action.payload
+        },
+        setCountry(state: SliceState, action: PayloadAction<number>) {
+            state.country = action.payload
+        },
+        setGenre(state: SliceState, action: PayloadAction<number>) {
+            state.genre = action.payload
         }
     },
 
     extraReducers: (builder) => {
         builder.addCase(fetchFilmsByType.pending, (state) => {
-            state.loading = LoadingStatus.PENDING
+            state.filmsLoading = LoadingStatus.PENDING
         })
 
         builder.addCase(fetchFilmsByType.fulfilled, (state, action) => {
             state.films = action.payload
-            state.loading = LoadingStatus.FULL_FILLED
+            state.filmsLoading = LoadingStatus.FULL_FILLED
+        })
+        builder.addCase(fetchFilters.pending, (state) => {
+            state.filtersLoading = LoadingStatus.PENDING
+        })
+
+        builder.addCase(fetchFilters.fulfilled, (state, action) => {
+            state.filters = action.payload
+            state.filtersLoading = LoadingStatus.FULL_FILLED
         })
     },
 })

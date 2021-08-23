@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
-import {TopFilmsResponse} from "../../api/rtk/getTopFilmsAPI";
 import {fetchService} from "../../tools/fetchService";
-import {FilmsTopType} from "../../static/api";
 import {GetStaticPaths, GetStaticProps, GetStaticPropsResult} from "next";
 import {DefaultNextDataI} from "../../interfaces/common/next";
 import {FilmI} from "../../interfaces/entities/film";
 import {MainLayout} from "../../components/MainLayout/MainLayout";
+import {FilmsTopType} from "../../static/enums";
+import {FetchHomeDataResponse} from "../../api/homeAPI";
 
 interface FilmDataResponse {
     data: FilmI
@@ -33,9 +33,9 @@ export const getStaticProps: GetStaticProps = async (props): Promise<GetStaticPr
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const data: TopFilmsResponse = await fetchService({url: "films/top", params: `type=${type}`, version: 2})
+    const data: FetchHomeDataResponse = await fetchService({url: "films/top", params: `type=${type}`, version: 2})
 
-    const paths = data.films?.map((film) => ({
+    const paths = data.films.map((film) => ({
         params: { filmId: film.filmId.toString() },
     }))
     return { paths, fallback: false }

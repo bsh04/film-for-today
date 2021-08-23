@@ -1,3 +1,6 @@
+import {CountryI} from "./country";
+import {GenreI} from "./genre";
+
 export interface FilmI {
     filmId: number
     nameRu: string
@@ -24,12 +27,4 @@ export interface FilmI {
     premiereDvd?: string,
     premiereBluRay?: string,
     distributorRelease?: string,
-}
-
-export interface CountryI {
-    country: string
-}
-
-export interface GenreI {
-    genre: string
 }

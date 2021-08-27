@@ -9,22 +9,19 @@ export const useBuildFilters = () => {
 
     const categoryOptions: Array<OptionI> = useMemo(() => Object.values(FilmsTopType).map((item) => ({
         value: item,
-        id: item,
         label: FilmsTopTypeView[item]
     })), [])
 
     const countiesOptions: Array<OptionI> = useMemo(() => filters.countries.map(({country, id}) => ({
-        value: id,
-        id: id,
+        value: id.toString(),
         label: country
     })), [filters.countries])
 
     const genresOptions: Array<OptionI> = useMemo(() => filters.genres.map(({genre, id}) => ({
-        value: id,
-        id: id,
+        value: id.toString(),
         label: genre
     })), [filters.genres])
-    
+
     return useMemo(() => ({
         categoryOptions,
         countiesOptions,

@@ -4,6 +4,9 @@ import {FilmI} from "../../interfaces/entities/film";
 import {fetchFilmsByType, fetchFilters} from "../thunks";
 import {FilmsTopType} from "../../static/enums";
 import {FetchFiltersDataResponse} from "../../api/homeAPI";
+import {CountryI} from "../../interfaces/entities/country";
+import {GenreI} from "../../interfaces/entities/genre";
+import {SelectChangeEvent} from "../../components/Select/Select";
 
 interface SliceState {
     films: Array<FilmI>
@@ -11,8 +14,8 @@ interface SliceState {
     filmsLoading: LoadingStatus
     filtersLoading: LoadingStatus
     type: FilmsTopType
-    country?: number
-    genre?: number
+    country?: SelectChangeEvent
+    genre?: SelectChangeEvent
 }
 
 const initialState: SliceState = {
@@ -37,10 +40,10 @@ export const homePageSlice = createSlice({
         setFilmsType(state: SliceState, action: PayloadAction<FilmsTopType>) {
             state.type = action.payload
         },
-        setCountry(state: SliceState, action: PayloadAction<number>) {
+        setCountry(state: SliceState, action: PayloadAction<SelectChangeEvent>) {
             state.country = action.payload
         },
-        setGenre(state: SliceState, action: PayloadAction<number>) {
+        setGenre(state: SliceState, action: PayloadAction<SelectChangeEvent>) {
             state.genre = action.payload
         }
     },

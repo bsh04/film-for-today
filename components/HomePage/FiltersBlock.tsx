@@ -1,27 +1,31 @@
 import React, {ChangeEvent, FC, useMemo} from 'react';
-import {OptionI, Select} from "../Select/Select";
+import {OptionI, Select, SelectChangeEvent} from "../Select/Select";
 import {FilmsTopType} from "../../static/enums";
 import {homePageSlice} from "../../redux/slices/homePageSlice";
 import {useAppDispatch, useAppSelector} from "../../redux";
 import {useFetchFiltersAPI} from "./hooks/useFetchFiltersAPI";
 import {LoadingStatus} from "../../static/api";
 import {useBuildFilters} from "./hooks/useBuildFilters";
+import {FilmsTopTypeView} from "../../static/consts";
+import {ValueType} from "react-select";
 
 export const FiltersBlock: FC = () => {
     useFetchFiltersAPI()
     const {categoryOptions, countiesOptions, genresOptions} = useBuildFilters()
     const dispatch = useAppDispatch()
 
-    const handleChangeType = (type: FilmsTopType) =>
-        dispatch(homePageSlice.actions.setFilmsType(type))
+    const handleChangeType = (e: SelectChangeEvent | null) =>{
+        dispatch(homePageSlice.actions.setFilmsType(e?.value as FilmsTopType))
+    }
 
-    const handleChangeCountry = ({target: {value}}: ChangeEvent<HTMLSelectElement>) =>
-        dispatch(homePageSlice.actions.setCountry(+value))
+    const handleChangeCountry = (e: SelectChangeEvent | null) =>
+        e && dispatch(homePageSlice.actions.setCountry(e))
 
-    const handleChangeGenre = ({target: {value}}: ChangeEvent<HTMLSelectElement>) =>
-        dispatch(homePageSlice.actions.setGenre(+value))
+    const handleChangeGenre = (e: SelectChangeEvent | null) =>
+        e && dispatch(homePageSlice.actions.setGenre(e))
 
     const {type: filmsType, filtersLoading, country, genre} = useAppSelector(state => state.homePage)
+    console.log(countiesOptions)
 
     return (
         <>
@@ -29,19 +33,18 @@ export const FiltersBlock: FC = () => {
                 <label htmlFor="category">Категория</label>
                 <Select
                     id={"category"}
-                    value={filmsType}
-                    items={categoryOptions}
-                    onChange={(e: ChangeEvent<HTMLSelectElement>) => handleChangeType(e.target.value as FilmsTopType)}
+                    value={{value: filmsType, label: FilmsTopTypeView[filmsType]}}
+                    options={categoryOptions}
+                    onChange={handleChangeType}
                 />
             </div>
             <div>
                 <label htmlFor="country">Страна</label>
                 <Select
                     isLoading={filtersLoading === LoadingStatus.PENDING}
-                    withEmptyOption
                     id={"country"}
                     value={country}
-                    items={countiesOptions}
+                    options={countiesOptions}
                     onChange={handleChangeCountry}
                 />
             </div>
@@ -49,10 +52,9 @@ export const FiltersBlock: FC = () => {
                 <label htmlFor="genre">Жанры</label>
                 <Select
                     isLoading={filtersLoading === LoadingStatus.PENDING}
-                    withEmptyOption
                     id={"genre"}
                     value={genre}
-                    items={genresOptions}
+                    options={genresOptions}
                     onChange={handleChangeGenre}
                 />
             </div>
